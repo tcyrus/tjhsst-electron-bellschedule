@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<script type="text/javascript">
+    window.$ = window.jQuery = require('jquery');
+	</script>
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript">
+		i2root = 'https://iodine.tjhsst.edu/';
+		currentdate = '20150830';
+		dayschedule_type = 'box';
+	</script>
+	<script type="text/javascript">
+		init_dayschedule();
+	</script>
+</head>
+<body>
+	<div class="dayschedule box">
+		<div class="day-left" onclick="day_jump(-1)" title="Go back one day">
+			&#9668;
+		</div>
+		<div class="day-right" onclick="day_jump(1)" title="Go forward one day">
+			&#9658;
+		</div>
+		<div class="day-name">
+			<span>Sunday, August 30</span>
+			<div class="view-week" onclick="load_week()">
+				Week
+				<span class="day-up">
+					&#9660;
+				</span>
+				View
+			</div>
+		</div>
+		<div class="day-type noschool" title="noschool">
+			No School
+		</div>
+		<div class="day-schedule">
+			<table class="schedule-tbl"></table>
+		</div>
+		<div class="day-remaining"></div>
+	</div>
+</body>
+</html>

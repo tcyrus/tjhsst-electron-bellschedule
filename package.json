@@ -1,0 +1,50 @@
+{
+  "name": "tjhsst-electron-dayschedule",
+  "productName": "TJHSST Day Schedule",
+  "version": "0.0.0",
+  "description": "TJHSST Day Schedule powered by Electron",
+  "license": "MIT",
+  "repository": "tcyrus/tjhsst-electron-dayschedule",
+  "author": {
+    "name": "TCYRUS",
+    "email": "admin@tcyrus.me",
+    "url": ""
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "xo",
+    "start": "electron .",
+    "build": "electron-packager . $npm_package_productName --out=dist --ignore='^/dist$' --prune --asar --all --version=0.31.1"
+  },
+  "files": [
+    "index.js",
+    "app.js",
+    "index.html",
+    "index.css"
+  ],
+  "keywords": [
+    "electron-app"
+  ],
+  "dependencies": {
+    "electron-debug": "^0.1.1",
+    "jquery": "^2.1.4",
+    "menubar": "^2.2.0"
+  },
+  "devDependencies": {
+    "electron-packager": "^5.0.0",
+    "electron-prebuilt": "^0.31.1",
+    "xo": "^0.7.1"
+  },
+  "xo": {
+    "esnext": true,
+    "envs": [
+      "node",
+      "browser"
+    ],
+    "rules": {
+      "prefer-arrow-callback": 0
+    }
+  }
+}
