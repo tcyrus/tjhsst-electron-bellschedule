@@ -1,7 +1,7 @@
 {
   "name": "tjhsst-electron-dayschedule",
   "productName": "TJHSST Day Schedule",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha",
   "description": "TJHSST Day Schedule powered by Electron",
   "license": "MIT",
   "repository": "tcyrus/tjhsst-electron-dayschedule",
@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . $npm_package_productName --platform=darwin --arch=x64 --version=0.30.3 --ignore=node_modules/electron"
+    "build": "electron-packager . $npm_package_productName --platform=darwin --arch=x64 --out=dist --prune --asar --version=0.31.1 --ignore='^/dist$' --ignore='node_modules/(electron-packager|electron-prebuilt)'"
   },
   "files": [
     "index.js",
@@ -31,7 +31,7 @@
     "menubar": "^2.2.0"
   },
   "devDependencies": {
-    "electron-packager": "^5.0.1",
+    "electron-packager": "^5.0.2",
     "electron-prebuilt": "^0.31.1"
   }
 }
