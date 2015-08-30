@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . $npm_package_productName --platform=darwin --arch=x64 --out=dist --prune --asar --version=0.31.1 --ignore='^/dist$' --ignore='node_modules/(electron-packager|electron-prebuilt)'"
+    "build": "electron-packager . $npm_package_productName --platform='darwin,win32' --arch=all --out=dist --prune --asar --version=0.31.1 --ignore='^/dist$' --ignore='node_modules/(electron-packager|electron-prebuilt)'"
   },
   "files": [
     "index.js",
