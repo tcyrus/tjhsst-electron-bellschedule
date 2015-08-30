@@ -4,7 +4,10 @@
 	font-family: 'Open Sans',Helvetica,Arial,sans-serif;
 }
 
-.dayschedule.box { width: 220px; }
+.dayschedule.box {
+	/*width: 220px;*/
+	width: 240px;
+}
 
 .day-name { font-size: 20px; }
 
