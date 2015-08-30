@@ -6,7 +6,8 @@ Date.prototype.yyyymmdd = function() {
 };
 
 function getoffset(qd, days) {
-	var dobj = new Date(['','January','February','March','April','May','June','July','August','September','October','November','December'][parseInt(qd.substring(4,6))] + ' ' + parseInt(qd.substring(6,8)) + ', ' + parseInt(qd.substring(0,4)));
+	//var dobj = new Date(['','January','February','March','April','May','June','July','August','September','October','November','December'][parseInt(qd.substring(4,6))] + ' ' + parseInt(qd.substring(6,8)) + ', ' + parseInt(qd.substring(0,4)));
+	var dobj = new Date(parseInt(qd.substring(0,4)), parseInt(qd.substring(4,6))-1, parseInt(qd.substring(6,8)));
 	var ms = 86400000;
 	var newdobj = new Date(dobj.getTime()+(ms * days));
 	return newdobj;
@@ -15,7 +16,7 @@ function getoffset(qd, days) {
 function day_jump(days) {
 	var newdobj = getoffset(currentdate, days);
 	//location.href = '?&date=' + newdobj.yyyymmdd();
-	//console.log('Loading',newdobj.yyyymmdd());
+	//console.log('Loading', newdobj.yyyymmdd());
 	load_date(newdobj.yyyymmdd());
 }
 
@@ -121,20 +122,20 @@ function week_back() {
 }
 */
 
-function init_dayschedule() {
-	load_current_date();
-	select_current_pd();
-	setInterval(select_current_pd, 30000)
-}
-
 function load_current_date() {
 	var loc = (dayschedule_type == 'day' ? 'day' : 'box');
-	$('body').load(i2root + 'ajax/dayschedule/' + loc + ' .dayschedule', function(d) {
+	$('body').load(i2root + 'ajax/dayschedule/' + loc + ' .dayschedule', function(response, status, xhr) {
 		var spl = "var currentdate = '", end = "';";
 		// get the contents in between those values--eg the new date
-		if (d.indexOf(spl) != -1) {
-			currentdate = d.split(spl)[1].split(end)[0];
+		if (response.indexOf(spl) != -1) {
+			currentdate = response.split(spl)[1].split(end)[0];
 			//console.log('Date Now', currentdate);
 		}
 	});
+}
+
+function init_dayschedule() {
+	load_current_date();
+	select_current_pd();
+	setInterval(select_current_pd, 30000);
 }

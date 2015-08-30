@@ -14,9 +14,8 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "xo",
     "start": "electron .",
-    "build": "electron-packager . $npm_package_productName --out=dist --ignore='^/dist$' --prune --asar --all --version=0.31.1"
+    "build": "electron-packager . $npm_package_productName --platform=darwin --arch=x64 --version=0.30.3 --ignore=node_modules/electron"
   },
   "files": [
     "index.js",
@@ -28,23 +27,11 @@
     "electron-app"
   ],
   "dependencies": {
-    "electron-debug": "^0.1.1",
     "jquery": "^2.1.4",
     "menubar": "^2.2.0"
   },
   "devDependencies": {
-    "electron-packager": "^5.0.0",
-    "electron-prebuilt": "^0.31.1",
-    "xo": "^0.7.1"
-  },
-  "xo": {
-    "esnext": true,
-    "envs": [
-      "node",
-      "browser"
-    ],
-    "rules": {
-      "prefer-arrow-callback": 0
-    }
+    "electron-packager": "^5.0.1",
+    "electron-prebuilt": "^0.31.1"
   }
 }
