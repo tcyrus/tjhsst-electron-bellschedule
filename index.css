@@ -1,7 +1,7 @@
 .dayschedule {
 	width: 300px;
 	text-align: center;
-	font-family: 'Open Sans',Helvetica,Arial,sans-serif;
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
 .dayschedule.box {
@@ -176,7 +176,7 @@ body.i3-dark .dayschedule-week-fixed { background: black; }
 
 .day-up:hover { opacity: 1; }
 
-.dayschedule td.times  {
+.dayschedule td.times {
     white-space: nowrap;
     overflow: hidden;
 }

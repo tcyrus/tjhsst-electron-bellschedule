@@ -1,54 +1,72 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<link rel="stylesheet" href="index.css">
-	<script>
-		window.$ = window.jQuery = require('jquery');
-		i2root = 'https://iodine.tjhsst.edu/';
-		dayschedule_type = 'box';
-		$(function() {
-			init_dayschedule();
-			$(document).ajaxComplete(function() {
-  				//$(".log").text("Triggered ajaxComplete handler.");
+	<head>
+		<link rel="stylesheet" href="index.css">
+		<script>
+			var ipc = require('ipc');
+
+			window.$ = window.jQuery = require('jquery');
+			i2root = 'https://iodine.tjhsst.edu/';
+			dayschedule_type = 'box';
+
+			$(function() {
+				init_dayschedule();
+
+				$("body").keydown(function(e) {
+					switch (e.keyCode) {
+						case 37:
+							// left
+							day_jump(-1);
+							break;
+						case 39:
+							// right
+							day_jump(1);
+							break;
+					 	case 81:
+							// Q
+							ipc.send('quit','');
+							break;
+						case 82:
+							// R
+							load_date(currentdate);
+							break;
+						case 84:
+							// T
+							load_current_date();
+							break;
+						default:
+							break;
+					}
+				});
 			});
-			$("body").keydown(function(e) {
-				if (e.keyCode == 37) {
-					// left
-					day_jump(-1);
-				} else if (e.keyCode == 39) {
-					// right
-					day_jump(1);
-				}
-			});
-		});
-	</script>
-	<script src="app.js"></script>
-</head>
-<body>
-	<div class="dayschedule box">
-		<div class="day-left" onclick="day_jump(-1)" title="Go back one day">
-			&#9668;
-		</div>
-		<div class="day-right" onclick="day_jump(1)" title="Go forward one day">
-			&#9658;
-		</div>
-		<div class="day-name">
-			<span>LOADING</span>
-			<div class="view-week" onclick="load_week()">
-				Week
-				<span class="day-up">
-					&#9660;
-				</span>
-				View
+		</script>
+		<script src="app.js"></script>
+	</head>
+	<body>
+		<div class="dayschedule box">
+			<div class="day-left" onclick="day_jump(-1)" title="Go back one day">
+				&#9668;
 			</div>
+			<div class="day-right" onclick="day_jump(1)" title="Go forward one day">
+				&#9658;
+			</div>
+			<div class="day-name">
+				<span>LOADING</span>
+				<div class="view-week" onclick="load_week()">
+					Week
+					<span class="day-up">
+						&#9660;
+					</span>
+					View
+				</div>
+			</div>
+			<div class="day-type noschool" title="noschool">
+				Please Wait
+			</div>
+			<div class="day-schedule">
+				<table class="schedule-tbl"></table>
+			</div>
+			<div class="day-remaining"></div>
 		</div>
-		<div class="day-type noschool" title="noschool">
-			Please Wait
-		</div>
-		<div class="day-schedule">
-			<table class="schedule-tbl"></table>
-		</div>
-		<div class="day-remaining"></div>
-	</div>
-</body>
+	</body>
 </html>

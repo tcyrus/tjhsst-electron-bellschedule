@@ -136,6 +136,9 @@ function load_current_date() {
 
 function init_dayschedule() {
 	load_current_date();
-	select_current_pd();
+	//select_current_pd();
+	$(document).ajaxComplete(function() {
+		select_current_pd();
+	});
 	setInterval(select_current_pd, 30000);
 }
