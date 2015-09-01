@@ -10,28 +10,19 @@
     "email": "admin@tcyrus.me",
     "url": ""
   },
-  "engines": {
-    "node": ">=0.10.0"
-  },
+	"dependencies": {
+		"jquery": "^2.1.4",
+		"menubar": "^2.2.0"
+	},
+	"devDependencies": {
+		"electron-packager": "^5.0.2",
+		"electron-prebuilt": "^0.31.1"
+	},
   "scripts": {
     "start": "electron .",
     "build": "electron-packager . $npm_package_productName --platform='darwin,win32' --arch=all --out=dist --prune --asar --version=0.31.1 --ignore='^/dist$' --ignore='node_modules/(electron-packager|electron-prebuilt)'"
   },
-  "files": [
-    "index.js",
-    "app.js",
-    "index.html",
-    "index.css"
-  ],
   "keywords": [
     "electron-app"
-  ],
-  "dependencies": {
-    "jquery": "^2.1.4",
-    "menubar": "^2.2.0"
-  },
-  "devDependencies": {
-    "electron-packager": "^5.0.2",
-    "electron-prebuilt": "^0.31.1"
-  }
+  ]
 }

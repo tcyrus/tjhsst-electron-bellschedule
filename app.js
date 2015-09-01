@@ -31,14 +31,14 @@ function gettd(time) {
 function get_times_array() {
 	times = [];
 	$p = $('.schedule-tbl .schedule-day');
-	i = 0;
+	var i = 0;
 	$p.each(function() {
-		times[i++] = ([$(this).attr('data-type'), gettd($(this).attr('data-start')), gettd($(this).attr('data-end'))]);
+		times[i++] = [$(this).attr('data-type'), gettd($(this).attr('data-start')), gettd($(this).attr('data-end'))];
 	});
 }
 
 function check_current_pd(d) {
-	for (i=0; i<times.length; i++) {
+	for (var i=0; i<times.length; i++) {
 		if (+d > times[i][1] && times[i][2] > +d) {
 			return times[i];
 		}
