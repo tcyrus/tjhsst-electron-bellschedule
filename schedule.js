@@ -71,12 +71,17 @@ function show_remaining_time() {
 
 function load_date(date) {
 	var loc = (dayschedule_type == 'day' ? 'day' : 'box');
-	$('body').load(i2root + 'ajax/dayschedule/' + loc + '?date=' + date + ' .dayschedule', function(d) {
-		var spl = "var currentdate = '", end = "';";
-		// get the contents in between those values--eg the new date
-		if (d.indexOf(spl) != -1) {
-			currentdate = d.split(spl)[1].split(end)[0];
-			//console.log('Date Now', currentdate);
+	$('body').load(i2root + 'ajax/dayschedule/' + loc + '?date=' + date + ' .dayschedule', function(response, status, xhr) {
+		if (status=='error') {
+			$('.day-name span').text('Error');
+			$('.day-type').text('Press R to Reload');
+		} else {
+			var spl = "var currentdate = '", end = "';";
+			// get the contents in between those values--eg the new date
+			if (response.indexOf(spl) != -1) {
+				currentdate = response.split(spl)[1].split(end)[0];
+				//console.log('Date Now', currentdate);
+			}
 		}
 	});
 }
@@ -125,11 +130,17 @@ function week_back() {
 function load_current_date() {
 	var loc = (dayschedule_type == 'day' ? 'day' : 'box');
 	$('body').load(i2root + 'ajax/dayschedule/' + loc + ' .dayschedule', function(response, status, xhr) {
-		var spl = "var currentdate = '", end = "';";
-		// get the contents in between those values--eg the new date
-		if (response.indexOf(spl) != -1) {
-			currentdate = response.split(spl)[1].split(end)[0];
-			//console.log('Date Now', currentdate);
+		if (status=='error') {
+    	$('.day-name span').text('Error');
+			$('.day-type').append('<br> Press R to Reload');
+			currentdate = -1;
+  	} else {
+			var spl = "var currentdate = '", end = "';";
+			// get the contents in between those values--eg the new date
+			if (response.indexOf(spl) != -1) {
+				currentdate = response.split(spl)[1].split(end)[0];
+				//console.log('Date Now', currentdate);
+			}
 		}
 	});
 }

@@ -10,6 +10,7 @@
     "email": "admin@tcyrus.me",
     "url": ""
   },
+	"main": "main.js",
 	"dependencies": {
 		"jquery": "^2.1.4",
 		"menubar": "^2.2.0"
