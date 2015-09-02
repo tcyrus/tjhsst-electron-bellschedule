@@ -11,15 +11,11 @@ $(function() {
     switch (e.keyCode) {
       case 37:
         // left
-				if (currentdate != -1) {
-        	day_jump(-1);
-				}
+				if (currentdate!=-1) {load_date(yesterdaydate)}
         break;
       case 39:
         // right
-				if (currentdate != -1) {
-        	day_jump(1);
-				}
+				if (currentdate!=-1) {load_date(tomorrowdate)}
         break;
       case 81:
         // Q

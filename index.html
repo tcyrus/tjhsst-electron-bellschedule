@@ -7,19 +7,18 @@
 	</head>
 	<body>
 		<div class="dayschedule box">
-			<div class="day-left" onclick="day_jump(-1)" title="Go Back One Day">&#9668;</div>
-			<div class="day-right" onclick="day_jump(1)" title="Go Forward One Day">&#9658;</div>
+			<div class="day-left" onclick="if(currentdate!=-1){load_date(yesterdaydate)}" title="Go Back One Day">&#9668;</div>
+			<div class="day-right" onclick="if(currentdate!=-1){load_date(tomorrowdate)}" title="Go Forward One Day">&#9658;</div>
 			<div class="day-name">
-				<span>Loading</span>
-				<div class="view-week" onclick="load_week()">
-					<span class="day-up">&#9660;</span>
-				</div>
+				<span><small>Loading</small></span>
 			</div>
 			<div class="day-type">
 				Please Wait
 			</div>
 			<div class="day-schedule">
-				<table class="schedule-tbl"></table>
+				<table class="schedule-tbl">
+					<tbody></tbody>
+				</table>
 			</div>
 			<div class="day-remaining"></div>
 		</div>
