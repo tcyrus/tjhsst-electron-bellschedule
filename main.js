@@ -1,7 +1,7 @@
 var ipc = require('ipc');
 var menubar = require('menubar');
 
-var mb = menubar({width:250, height:225});
+var mb = menubar({width:250, height:225, resizable:false});
 
 mb.on('ready', function ready() {
   console.log('App is Ready');

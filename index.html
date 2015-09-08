@@ -1,26 +1,73 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<link rel="stylesheet" href="index.css">
-		<script src="script.js"></script>
-		<script src="schedule.js"></script>
-	</head>
-	<body>
-		<div class="dayschedule box">
-			<div class="day-left" onclick="if(currentdate!=-1){load_date(yesterdaydate)}" title="Go Back One Day">&#9668;</div>
-			<div class="day-right" onclick="if(currentdate!=-1){load_date(tomorrowdate)}" title="Go Forward One Day">&#9658;</div>
-			<div class="day-name">
-				<span><small>Loading</small></span>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+	<style>
+		/* open-sans-regular - latin */
+		@font-face {
+		  font-family: 'Open Sans';
+		  font-style: normal;
+		  font-weight: 400;
+		  src: local('Open Sans'), local('OpenSans'),
+		       url('fonts/open-sans-v13-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+ */
+		       url('fonts/open-sans-v13-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+		}
+		/* open-sans-700 - latin */
+		@font-face {
+		  font-family: 'Open Sans';
+		  font-style: normal;
+		  font-weight: 700;
+		  src: local('Open Sans Bold'), local('OpenSans-Bold'),
+		       url('fonts/open-sans-v13-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+ */
+		       url('fonts/open-sans-v13-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+		}
+	</style>
+	<!--<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:100italic,400italic,700italic,100,400,700">-->
+
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/themes.css">
+	<link rel="stylesheet" type="text/css" href="css/responsive.css">
+
+	<link rel="stylesheet" type="text/css" href="css/schedule.css">
+	<link rel="stylesheet" type="text/css" href="css/login.css">
+
+	<style type="text/css">
+		.center-wrapper {
+			min-height: auto;
+		}
+
+		.center-wrapper .center {
+			margin: 0;
+			top: 0;
+		}
+
+		body {
+			background: transparent;
+		}
+	</style>
+
+	<script>window.$=window.jQuery=require('jquery');</script>
+	<script type="text/javascript" src="js/vendor/jquery.cookie.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/schedule.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+</head>
+
+<body>
+	<div class="center-wrapper">
+		<div class="center">
+			<div class="schedule-outer">
+				<div class="schedule">
+					<a class="chevron schedule-left"><i class="fa fa-chevron-left"></i></a>
+					Please Wait
+					<a class="chevron schedule-right"><i class="fa fa-chevron-right"></i></a>
+					<br>
+					<h2 class="day-name">Loading</h2>
+				</div>
 			</div>
-			<div class="day-type">
-				Please Wait
-			</div>
-			<div class="day-schedule">
-				<table class="schedule-tbl">
-					<tbody></tbody>
-				</table>
-			</div>
-			<div class="day-remaining"></div>
 		</div>
-	</body>
+	</div>
+</body>
+
 </html>
