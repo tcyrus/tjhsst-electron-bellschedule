@@ -1,7 +1,7 @@
 {
   "name": "tjhsst-electron-dayschedule",
   "productName": "TJHSST Day Schedule",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "TJHSST Day Schedule powered by Electron",
   "license": "MIT",
   "repository": "tcyrus/tjhsst-electron-dayschedule",
