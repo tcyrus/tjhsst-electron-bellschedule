@@ -1,12 +1,12 @@
-var ipc = require('ipc');
-var menubar = require('menubar');
+const ipc = require('electron').ipcMain;
+const menubar = require('menubar');
 
-var mb = menubar({width:250, height:225, resizable:false});
+const mb = menubar({width: 250, height: 275});
 
-mb.on('ready', function ready() {
-  console.log('App is Ready');
+mb.on('ready', () => {
+	console.log('App is Ready');
 });
 
-ipc.on('quit', function(event, arg) {
-  mb.app.quit();
+ipc.on('quit', (event, arg) => {
+	mb.app.quit();
 });

@@ -6,24 +6,40 @@
   "license": "MIT",
   "repository": "tcyrus/tjhsst-electron-dayschedule",
   "author": {
-    "name": "TCYRUS",
-    "email": "admin@tcyrus.me",
-    "url": ""
+	"name": "TCYRUS",
+	"email": "admin@tcyr.us",
+	"url": ""
   },
-	"main": "main.js",
-	"dependencies": {
-		"jquery": "^2.1.4",
-		"menubar": "^2.2.0"
-	},
-	"devDependencies": {
-		"electron-packager": "^5.0.2",
-		"electron-prebuilt": "^0.31.1"
-	},
+  "engines": {
+	"node": ">=4"
+  },
+  "electronVersion": "0.36.11",
   "scripts": {
-    "start": "electron .",
-    "build": "electron-packager . $npm_package_productName --platform='darwin,win32' --arch=all --out=dist --prune --asar --version=0.31.1 --ignore='^/dist$' --ignore='node_modules/(electron-packager|electron-prebuilt)'"
+	"test": "xo",
+	"start": "electron .",
+	"build": "electron-packager . $npm_package_productName --platform='darwin,win32' --arch=all --out=dist --prune --asar --version=0.31.1 --ignore='^/dist$' --ignore='node_modules/(electron-packager|electron-prebuilt)'"
   },
+  "main": "main.js",
   "keywords": [
-    "electron-app"
-  ]
+	"electron-app",
+	"tjhsst"
+  ],
+  "dependencies": {
+	"electron-debug": "^0.5.2",
+	"jquery": "~2.2.1",
+	"js-cookie": "^2.1.0",
+	"menubar": "~4.0.2"
+  },
+  "devDependencies": {
+	"electron-packager": "~5.2.1",
+	"electron-prebuilt": "^0.36.11",
+	"xo": "~0.13.0"
+  },
+  "xo": {
+	"esnext": true,
+	"envs": [
+	  "node",
+	  "browser"
+	]
+  }
 }
