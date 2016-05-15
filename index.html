@@ -1,47 +1,49 @@
 <!DOCTYPE html>
-<html>
-
+<html lang='en'>
 <head>
-	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:100italic,400italic,700italic,100,400,700" />
 
-	<link rel="stylesheet" href="css/opensans.css">
+	<link rel="stylesheet" type="text/css" href="css/base.css">
 
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="css/base.css">
-	<link rel="stylesheet" href="css/schedule.css">
-	<link rel="stylesheet" href="css/login.css">
+	<link rel="stylesheet" type="text/css" href="css/schedule.css">
+	<link rel="stylesheet" type="text/css" href="css/login.css">
 
-	<style>
+	<style type="text/css">
 		.center-wrapper {
 			min-height: auto;
 		}
+
 		.center-wrapper .center {
 			margin: 0;
 			top: 0;
 		}
+
+		body {
+			background: transparent;
+		}
 	</style>
 
-	<script>window.$=window.jQuery=require('jquery')</script>
-	<script>window.Cookies=require('js-cookie')</script>
-	<script src="js/common.js"></script>
-	<script src="js/schedule.js"></script>
-	<script src="js/app.js"></script>
+
+	<script type="text/javascript">window.$=window.jQuery=require('jquery')</script>
+	<script type="text/javascript">window.Cookies=require('js-cookie')</script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/schedule.js"></script>
+	<script type="text/javascript" src="src/app.js"></script>
 </head>
 
 <body>
+
 	<div class="center-wrapper">
 		<div class="center">
 			<div class="schedule-outer">
 				<div class="schedule">
-					<a class="chevron schedule-left"><i class="fa fa-chevron-left"></i></a>
-					Please Wait
-					<a class="chevron schedule-right"><i class="fa fa-chevron-right"></i></a>
-					<br>
-					<h2 class="day-name">Loading</h2>
+					<a class="schedule-left"></a>
+					<span class="schedule-date">Loading</span>
+					<a class="schedule-right"></a>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
-
 </html>

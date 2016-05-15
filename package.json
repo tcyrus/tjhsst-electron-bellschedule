@@ -1,45 +1,27 @@
 {
   "name": "tjhsst-electron-dayschedule",
-  "productName": "TJHSST Day Schedule",
+  "appName": "TJHSST Day Schedule",
   "version": "0.0.2",
+  "main": "main.js",
   "description": "TJHSST Day Schedule powered by Electron",
   "license": "MIT",
   "repository": "tcyrus/tjhsst-electron-dayschedule",
   "author": {
-	"name": "TCYRUS",
-	"email": "admin@tcyr.us",
-	"url": ""
+    "name": "TCYRUS",
+    "email": "admin@tcyr.us",
+    "url": ""
   },
-  "engines": {
-	"node": ">=4"
-  },
-  "electronVersion": "0.36.11",
-  "scripts": {
-	"test": "xo",
-	"start": "electron .",
-	"build": "electron-packager . $npm_package_productName --platform='darwin,win32' --arch=all --out=dist --prune --asar --version=0.31.1 --ignore='^/dist$' --ignore='node_modules/(electron-packager|electron-prebuilt)'"
-  },
-  "main": "main.js",
   "keywords": [
-	"electron-app",
-	"tjhsst"
+    "electron-app",
+    "tjhsst"
   ],
   "dependencies": {
-	"electron-debug": "^0.5.2",
-	"jquery": "~2.2.1",
-	"js-cookie": "^2.1.0",
-	"menubar": "~4.0.2"
+    "jquery": "~2.2.3",
+    "js-cookie": "^2.1.1",
+    "menubar": "~4.1.1"
   },
   "devDependencies": {
-	"electron-packager": "~5.2.1",
-	"electron-prebuilt": "^0.36.11",
-	"xo": "~0.13.0"
-  },
-  "xo": {
-	"esnext": true,
-	"envs": [
-	  "node",
-	  "browser"
-	]
+    "electron-prebuilt": "^1.0.2",
+    "electron-packager": "^7.0.1"
   }
 }
