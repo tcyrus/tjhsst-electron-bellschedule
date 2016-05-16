@@ -1,27 +1,26 @@
 /* global $ */
-$(document).ready(function() {
+$(document).ready(() => {
 
-    scheduleBind = function() {
-        $(".schedule-outer .schedule-left").click(function(event) {
+    scheduleBind = () => {
+        $(".schedule-outer .schedule-left").click(event => {
             event.preventDefault();
             scheduleView(-1);
         });
 
-        $(".schedule-outer .schedule-right").click(function(event) {
+        $(".schedule-outer .schedule-right").click(event => {
             event.preventDefault();
             scheduleView(1);
         });
     };
 
-    genOrigSearch = function(part_exclude) {
-        var qs = location.search.substring(1);
+    genOrigSearch = part_exclude => {
+        let qs = location.search.substring(1);
         var osearch = "";
         var searchparts = qs.split("&");
-        for (var i in searchparts) {
-            // console.debug(searchparts[i]);
-            if (searchparts[i].length > 0 && searchparts[i].substring(0, part_exclude.length+1) !== (part_exclude + "=")) {
-                osearch += searchparts[i] + "&";
-            }
+        for (var el of searchparts) {
+            // console.debug(el);
+            if (el.length > 0 && el.substring(0, part_exclude.length+1) !== `${part_exclude}=`)
+                osearch += `${el}&`;
         }
         return osearch;
     };
@@ -29,65 +28,64 @@ $(document).ready(function() {
     window.osearch = genOrigSearch("date");
     // console.info("osearch:", window.osearch);
 
-    scheduleView = function(reldate) {
+    scheduleView = reldate => {
         $sch = $(".schedule");
-        var endpoint = $sch.attr("data-endpoint");
-        var prev = $sch.attr("data-prev-date");
-        var next = $sch.attr("data-next-date")
-        if (reldate === 1) {
-            date = next;
-        } else if (reldate === -1) {
-            date = prev;
-        } else {
-            date = reldate;
-        }
+
+        const endpoint = $sch.attr("data-endpoint");
+        const prev = $sch.attr("data-prev-date");
+        const next = $sch.attr("data-next-date");
+
+        if (reldate === 1) date = next;
+        else if (reldate === -1) date = prev;
+        else date = reldate;
 
         if (history.pushState) {
-            var nosearch = genOrigSearch("date");
-            if (nosearch != window.osearch) {
+            let nosearch = genOrigSearch("date");
+
+            if (nosearch !== window.osearch)
                 window.osearch = nosearch;
-            }
-            var url = "?"+window.osearch+"date="+date;
+
+            let url = `?${window.osearch}date=${date}`;
             console.debug(url);
             history.pushState(null, null, url);
         }
 
-        $.get(endpoint, {"date": date, "no_outer": true}, function(d) {
+        $.get(endpoint, {"date": date, "no_outer": true}, d => {
             $(".schedule-outer").html(d);
             scheduleBind();
             setTimeout(displayPeriod, 50);
         });
     };
 
-    formatDate = function(date) {
+    formatDate = date => {
         // console.log("date: " + date);
-        var parts = date.split("-");
+        let parts = date.split("-");
         return new Date(parts[0], parts[1]-1, parts[2]);
     }
 
-    formatTime = function(time, date) {
-        var d = new Date(date);
-        var tm = time.split(":");
-        var hr = parseInt(tm[0]);
-        var mn = parseInt(tm[1]);
+    formatTime = (time, date) => {
+        let d = new Date(date);
+        let tm = time.split(":");
+        let hr = parseInt(tm[0]);
+        let mn = parseInt(tm[1]);
         d.setHours(hr < 7 ? hr+12 : hr);
         d.setMinutes(mn)
         return d;
     }
 
 
-    getPeriods = function() {
+    getPeriods = () => {
         $sch = $(".schedule");
-        var blocks = $(".schedule-block[data-block-order]", $sch);
-        var periods = [];
-        var curDate = formatDate($sch.attr("data-date"));
+        const blocks = $(".schedule-block[data-block-order]", $sch);
+        const curDate = formatDate($sch.attr("data-date"));
+        const periods = [];
 
         blocks.each(function() {
-            var start = $(this).attr("data-block-start");
-            var startDate = formatTime(start, curDate);
+            let start = $(this).attr("data-block-start");
+            let startDate = formatTime(start, curDate);
 
-            var end = $(this).attr("data-block-end");
-            var endDate = formatTime(end, curDate);
+            let end = $(this).attr("data-block-end");
+            let endDate = formatTime(end, curDate);
 
             periods.push({
                 "name": $(this).attr("data-block-name"),
@@ -106,33 +104,31 @@ $(document).ready(function() {
         return periods;
     }
 
-    getPeriodElem = function(period) {
-        return $(".schedule-block[data-block-order='" + period.order + "']");
-    }
+    getPeriodElem = period => $(`.schedule-block[data-block-order='${period.order}']`)
 
-    withinPeriod = function(period, now) {
-        var st = period["start"].date;
-        var en = period["end"].date;
+    withinPeriod = (period, now) => {
+        let st = period["start"].date;
+        let en = period["end"].date;
         return now >= st && now < en;
     }
 
-    betweenPeriod = function(period1, period2, now) {
-        var en = period1["end"].date;
-        var st = period2["start"].date;
+    betweenPeriod = (period1, period2, now) => {
+        let en = period1["end"].date;
+        let st = period2["start"].date;
         return now >= en && now < st;
     }
 
 
-    getCurrentPeriod = function(now) {
+    getCurrentPeriod = now => {
         $sch = $(".schedule");
-        var schDate = $sch.attr("data-date");
+        let schDate = $sch.attr("data-date");
         if (!schDate) return;
-        var curDate = formatDate(schDate);
-        var periods = getPeriods();
+        let curDate = formatDate(schDate);
         if (!now) now = new Date();
+        var periods = getPeriods();
 
         for (var i=0; i<periods.length; i++) {
-            var period = periods[i];
+            let period = periods[i];
             if (withinPeriod(period, now)) {
                 return {
                     "status": "in",
@@ -147,34 +143,35 @@ $(document).ready(function() {
                 };
             }
         }
+
         return false;
     }
 
     window.prevPeriod = null;
-    displayPeriod = function(now) {
+
+    displayPeriod = now => {
         $sch = $(".schedule");
-        if (!now) var now = new Date();
-        var current = getCurrentPeriod(now);
-        // if (current != window.prevPeriod) console.debug(now.getHours()+":"+now.getMinutes(), "current:", current);
+        if (!now) now = new Date();
+        const current = getCurrentPeriod(now);
+        // if (current != window.prevPeriod) console.debug(`${now.getHours()}:${now.getMinutes()}`, "current:", current);
         window.prevPeriod = current;
         $(".schedule-block").removeClass("current");
-        $(".schedule-block-between").remove()
+        $(".schedule-block-between").remove();
 
         if (!!current) {
-		    if (current["status"] == "in") {
-		        var p = getPeriodElem(current["period"]);
-		        p.addClass("current");
-		    } else if (current["status"] == "between") {
-		        var prev = getPeriodElem(current["prev"]);
-		        var next = getPeriodElem(current["next"]);
-		        var times = current["prev"]["end"].str + " - " + current["next"]["start"].str;
-		        prev.after("<tr class='schedule-block schedule-block-between current'><th>Passing:</th><td>" + times + "</td></tr>");
+		    if (current.status === "in") {
+		        let p = getPeriodElem(current.period);
+		        p.addClass('current');
+		    } else if (current.status === "between") {
+		        let prev = getPeriodElem(current.prev);
+		        //var next = getPeriodElem(current.next);
+		        let times = `${current.prev.end.str} - ${current.next.start.str}`;
+		        prev.after(`<tr class='schedule-block schedule-block-between current'><th>Passing:</th><td>${times}</td></tr>`);
 		    }
 		}
     }
 
     scheduleBind();
-
 
     displayPeriod();
     setInterval(displayPeriod, 10000);
