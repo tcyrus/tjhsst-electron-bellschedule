@@ -1,7 +1,7 @@
 {
   "name": "tjhsst-electron-bellschedule",
   "productName": "TJHSST Bell Schedule",
-  "version": "0.0.3-alpha",
+  "version": "0.0.3-beta",
   "main": "main.js",
   "scripts": {
     "start": "./node_modules/.bin/electron .",
