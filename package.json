@@ -4,8 +4,8 @@
   "version": "0.0.3-alpha",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "build": "electron-packager . --out=dist --app-version=$npm_package_version --ignore=scss --prune --asar --overwrite --all"
+    "start": "./node_modules/.bin/electron .",
+    "build": "./node_modules/.bin/electron-packager . --out=dist --app-version=$npm_package_version --ignore=scss --prune --asar --overwrite --all"
   },
   "description": "TJHSST Bell Schedule powered by Electron",
   "license": "MIT",
@@ -20,8 +20,6 @@
     "tjhsst"
   ],
   "dependencies": {
-    "jquery": "~2.2.3",
-    "js-cookie": "^2.1.1",
     "menubar": "~4.1.1"
   },
   "devDependencies": {

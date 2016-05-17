@@ -12,35 +12,37 @@ Date.prototype.yyyymmdd = () => {
 }
 
 $(document).ready(() => {
-	$(document).ajaxComplete(modifyHTML)
+	$(document).on('ajaxComplete', modifyHTML)
 
 	$(document).keydown(e => {
 		console.log(e.keyCode);
 		switch (e.keyCode) {
 			case 37:
 				// left
-				if (window.date) $('.schedule-outer .schedule-left').click()
-				break;
+				if (window.date)
+					$('.schedule-outer .schedule-left').click()
+				break
 			case 39:
 				// right
-				if (window.date) $('.schedule-outer .schedule-right').click()
+				if (window.date)
+					$('.schedule-outer .schedule-right').click()
 				break
 			case 81:
 				// Q
 				ipcRenderer.send('quit')
-				break;
+				break
 			case 82:
 				// R
 				console.info('R')
 				if (window.date) scheduleView(date)
 				else initDayschedule()
-				break;
+				break
 			case 84:
 				// T
-				initDayschedule();
-				break;
+				initDayschedule()
+				break
 			default:
-				break;
+				break
 		}
 	})
 
@@ -50,11 +52,11 @@ $(document).ready(() => {
 function modifyHTML() {
 	$sch = $('.schedule')
 	$sch.attr('data-endpoint', `https://ion.tjhsst.edu${$sch.attr('data-endpoint')}`)
-	scheduleBind();
+	scheduleBind()
 }
 
 function loadError() {
-	$('.schedule-date').text('Please Reload');
+	$('.schedule-date').text('Please Reload')
 }
 
 function initDayschedule() {
@@ -71,6 +73,6 @@ function initDayschedule() {
 			title = `${arg.period.start.str} - ${arg.period.end.str}`
 		else if (arg.status === "between")
 			title = `${arg.prev.end.str} - ${arg.next.start.str}`
-    	ipcRenderer.send('title', title)
+		ipcRenderer.send('title', title)
 	});
 }
