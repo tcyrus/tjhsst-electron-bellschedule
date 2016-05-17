@@ -1,6 +1,5 @@
 /* global $ */
 $(document).ready(() => {
-
 	scheduleBind = () => {
 		$(".schedule-outer .schedule-left").click(event => {
 			event.preventDefault();
@@ -58,20 +57,15 @@ $(document).ready(() => {
 	};
 
 	formatDate = date => {
-		//console.log("date: " + date);
-		//let parts = date.split("-");
-		//return new Date(parts[0], parts[1]-1, parts[2]);
-		let {y, m, d} = date.split("-");
+		//console.log("date:", date);
+		let [y, m, d] = date.split("-");
 		return new Date(y, m-1, d);
 	}
 
 	formatTime = (time, date) => {
 		let d = new Date(date);
 
-		//let tm = time.split(":");
-		//let hr = parseInt(tm[0]);
-		//let mn = parseInt(tm[1]);
-		let {hr, mn} = time.split(":");
+		let [hr, mn] = time.split(":");
 		hr = parseInt(hr);
 		mn = parseInt(mn);
 
@@ -134,8 +128,8 @@ $(document).ready(() => {
 		if (!now) now = new Date();
 		var periods = getPeriods();
 
-		for (var i=0; i<periods.length; i++) {
-			let period = periods[i];
+		for (var i = 0; i < periods.length; i++) {
+			var period = periods[i];
 			if (withinPeriod(period, now)) {
 				return {
 					"status": "in",

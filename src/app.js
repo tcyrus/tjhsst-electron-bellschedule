@@ -15,7 +15,6 @@ $(document).ready(() => {
 	$(document).on('ajaxComplete', modifyHTML)
 
 	$(document).keydown(e => {
-		console.log(e.keyCode);
 		switch (e.keyCode) {
 			case 37:
 				// left
@@ -27,15 +26,17 @@ $(document).ready(() => {
 				if (window.date)
 					$('.schedule-outer .schedule-right').click()
 				break
+			case 68:
+				// D
+				ipcRenderer.send('devtools')
+				break
 			case 81:
 				// Q
 				ipcRenderer.send('quit')
 				break
 			case 82:
 				// R
-				console.info('R')
-				if (window.date) scheduleView(date)
-				else initDayschedule()
+				location.reload()
 				break
 			case 84:
 				// T
@@ -59,20 +60,24 @@ function loadError() {
 	$('.schedule-date').text('Please Reload')
 }
 
+function updateTitle() {
+	var title
+	const arg = window.prevPeriod
+	if (arg.status === "in")
+		title = `${arg.period.start.str} - ${arg.period.end.str}`
+	else if (arg.status === "between")
+		title = `${arg.prev.end.str} - ${arg.next.start.str}`
+	ipcRenderer.send('title', title)
+}
+
 function initDayschedule() {
 	$('.schedule-outer').load('https://ion.tjhsst.edu/schedule/view .schedule', (response, status, xhr) => {
 		if (status == 'error') return loadError()
 		window.date = true
 
-		scheduleBind()
 		displayPeriod()
+		scheduleBind()
 
-		var title = ""
-		const arg = window.prevPeriod
-		if (arg.status === "in")
-			title = `${arg.period.start.str} - ${arg.period.end.str}`
-		else if (arg.status === "between")
-			title = `${arg.prev.end.str} - ${arg.next.start.str}`
-		ipcRenderer.send('title', title)
+		setInterval(updateTitle, 10000);
 	});
 }
