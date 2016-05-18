@@ -1,5 +1,10 @@
 /* global $ */
 $(document).ready(() => {
+	setToHappen = (fn, d) => {
+		let t = d.getTime() - new Date().getTime();
+		return setTimeout(fn, t);
+	}
+
 	scheduleBind = () => {
 		$(".schedule-outer .schedule-left").click(event => {
 			event.preventDefault();
@@ -14,8 +19,9 @@ $(document).ready(() => {
 
 	genOrigSearch = part_exclude => {
 		let qs = location.search.substring(1);
+		const searchparts = qs.split("&");
 		var osearch = "";
-		var searchparts = qs.split("&");
+
 		for (var el of searchparts) {
 			// console.debug(el);
 			if (el.length > 0 && el.substring(0, part_exclude.length+1) !== `${part_exclude}=`)
@@ -52,7 +58,7 @@ $(document).ready(() => {
 		$.get(endpoint, {"date": date, "no_outer": true}, d => {
 			$(".schedule-outer").html(d);
 			scheduleBind();
-			setTimeout(displayPeriod, 50);
+			displayPeriod();
 		});
 	};
 
@@ -79,16 +85,15 @@ $(document).ready(() => {
 		$sch = $(".schedule");
 		const blocks = $(".schedule-block[data-block-order]", $sch);
 		const curDate = formatDate($sch.attr("data-date"));
-		const periods = [];
 
-		blocks.each(function() {
+		return blocks.map(function() {
 			let start = $(this).attr("data-block-start");
 			let startDate = formatTime(start, curDate);
 
 			let end = $(this).attr("data-block-end");
 			let endDate = formatTime(end, curDate);
 
-			periods.push({
+			return {
 				"name": $(this).attr("data-block-name"),
 				"start": {
 					"str": start,
@@ -99,10 +104,8 @@ $(document).ready(() => {
 					"date": endDate
 				},
 				"order": $(this).attr("data-block-order")
-			});
-		});
-
-		return periods;
+			};
+		}).get();
 	}
 
 	getPeriodElem = period => $(`.schedule-block[data-block-order='${period.order}']`)
@@ -119,17 +122,16 @@ $(document).ready(() => {
 		return now >= en && now < st;
 	}
 
-
 	getCurrentPeriod = now => {
 		$sch = $(".schedule");
 		let schDate = $sch.attr("data-date");
 		if (!schDate) return;
 		let curDate = formatDate(schDate);
 		if (!now) now = new Date();
-		var periods = getPeriods();
+		const periods = getPeriods();
 
 		for (var i = 0; i < periods.length; i++) {
-			var period = periods[i];
+			const period = periods[i];
 			if (withinPeriod(period, now)) {
 				return {
 					"status": "in",
@@ -159,21 +161,32 @@ $(document).ready(() => {
 		$(".schedule-block").removeClass("current");
 		$(".schedule-block-between").remove();
 
+		var timeout, times = "";
+
 		if (!!current) {
 			if (current.status === "in") {
 				let p = getPeriodElem(current.period);
 				p.addClass('current');
+				times = `${current.period.start.str} - ${current.period.end.str}`;
+				timeout = current.period.end.date;
 			} else if (current.status === "between") {
 				let prev = getPeriodElem(current.prev);
 				//var next = getPeriodElem(current.next);
-				let times = `${current.prev.end.str} - ${current.next.start.str}`;
+				times = `${current.prev.end.str} - ${current.next.start.str}`;
 				prev.after(`<tr class='schedule-block schedule-block-between current'><th>Passing:</th><td>${times}</td></tr>`);
+				timeout = current.next.start.date;
+			}
+		} else {
+			const periods = getPeriods();
+			if ((periods.length > 0) && (now < periods[0].start.date)) {
+				timeout = periods[0].start.date;
+			} else {
+				timeout = new Date()
+				timeout.setHours(24, 0, 0, 0)
 			}
 		}
+
+		$(document).trigger('displayPeriod', times);
+		setToHappen(displayPeriod, timeout);
 	}
-
-	scheduleBind();
-
-	displayPeriod();
-	setInterval(displayPeriod, 10000);
 });

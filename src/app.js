@@ -60,13 +60,15 @@ function loadError() {
 	$('.schedule-date').text('Please Reload')
 }
 
-function updateTitle() {
-	var title
-	const arg = window.prevPeriod
-	if (arg.status === "in")
-		title = `${arg.period.start.str} - ${arg.period.end.str}`
-	else if (arg.status === "between")
-		title = `${arg.prev.end.str} - ${arg.next.start.str}`
+function updateTitle(event, title) {
+	if (!title) {
+		title = ""
+		const arg = window.prevPeriod
+		if (arg.status === "in")
+			title = `${arg.period.start.str} - ${arg.period.end.str}`
+		else if (arg.status === "between")
+			title = `${arg.prev.end.str} - ${arg.next.start.str}`
+	}
 	ipcRenderer.send('title', title)
 }
 
@@ -74,10 +76,9 @@ function initDayschedule() {
 	$('.schedule-outer').load('https://ion.tjhsst.edu/schedule/view .schedule', (response, status, xhr) => {
 		if (status == 'error') return loadError()
 		window.date = true
+		$(document).on('displayPeriod', updateTitle);
 
-		displayPeriod()
 		scheduleBind()
-
-		setInterval(updateTitle, 10000);
+		displayPeriod()
 	});
 }
